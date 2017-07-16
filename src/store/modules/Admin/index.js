@@ -2,6 +2,7 @@ const TOGGLE_MAIN_NAV_MINIVARIANT = 'TOGGLE_MAIN_NAV_MINIVARIANT'
 const SHOW_MAIN_NAV_MINIVARIANT = 'SHOW_MAIN_NAV_MINIVARIANT'
 const TOGGLE_MAIN_NAV_CLIPPED = 'TOGGLE_MAIN_NAV_CLIPPED'
 const TOGGLE_MAIN_NAV_DRAWER = 'TOGGLE_MAIN_NAV_DRAWER'
+const SET_MAIN_NAV_DRAWER = 'SET_MAIN_NAV_DRAWER'
 
 // state
 const state = {
@@ -14,14 +15,7 @@ const state = {
     {
       action: 'assignment_ind',
       title: '行情中心',
-      group: 'market-center',
-      items: [
-        {
-          action: 'list',
-          title: '行情列表',
-          to: { name: 'MarketList' }
-        }
-      ]
+      to: { name: 'MarketCenterDefault' }
     }
   ]
 }
@@ -42,6 +36,9 @@ const mutations = {
   },
   [TOGGLE_MAIN_NAV_DRAWER](state) {
     state.drawer = !state.drawer
+  },
+  [SET_MAIN_NAV_DRAWER](state, payload) {
+    state.drawer = payload
   }
 }
 

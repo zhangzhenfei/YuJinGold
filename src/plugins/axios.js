@@ -1,8 +1,8 @@
 import axios from 'axios'
 
 let options = {
-  baseURL: 'http://localhost:8081',
-  timeout: 50000 // 50000ms的超时验证
+  baseURL: 'http://localhost:18080',
+  timeout: 300000 // 50000ms的超时验证
 }
 // 创建一个axios实例
 const instance = axios.create(options)

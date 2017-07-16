@@ -1,5 +1,8 @@
+import MarketCenter from './market-center'
+
 export default {
   path: '/admin',
-  name: 'AdminMarketCenter',
-  component: resolve => require(['@/views/Admin/Market-Center/index'], resolve)
+  name: 'Admin',
+  component: resolve => require(['@/views/Admin/index'], resolve),
+  children: [MarketCenter]
 }
