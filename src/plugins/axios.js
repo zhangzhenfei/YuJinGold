@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 let options = {
-  baseURL: 'http://localhost:18080',
+  baseURL: 'http://jinyugold.duapp.com:18080',
   timeout: 300000 // 50000ms的超时验证
 }
 // 创建一个axios实例
