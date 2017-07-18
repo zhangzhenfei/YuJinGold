@@ -1,5 +1,7 @@
 var co = require('co')
 var MongoClient = require('mongodb').MongoClient
+
+// 'mongodb://yujin-admin:yujin@localhost:27017/yujin-gold?authMechanism=DEFAULT&authSource=yujin-gold'
 var connect = MongoClient.connect(
   'mongodb://f9bd54217cc4450ea727e0efe2cb9643:af7b47e007944ef293636cac3d08b241@mongo.duapp.com:8908/AMmvmWrttRjLLKdkstKR?authMechanism=DEFAULT&authSource=AMmvmWrttRjLLKdkstKR'
 )
