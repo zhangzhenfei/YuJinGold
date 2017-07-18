@@ -1,10 +1,10 @@
-import axios from '@/plugins/axios'
+import axios from '@/plugins/axios-admin'
 
 /**
  * 批量抓取来源数据（服务器从API中转发）
  */
 export const fetchSources = async () => {
-  const data = await axios.post('/market-center/fetchSources')
+  const data = await axios.post('/admin/market-center/fetchSources')
   return data
 }
 
@@ -12,7 +12,7 @@ export const fetchSources = async () => {
  * 查找市场行情设置列表
  */
 export const find = async query => {
-  const data = await axios.post('/market-center/find', query)
+  const data = await axios.post('/admin/market-center/find', query)
   return data
 }
 
@@ -21,7 +21,7 @@ export const find = async query => {
  * @param {Object} params 行情设置数据
  */
 export const addMarketGold = async params => {
-  const data = await axios.post('/market-center/saveOrUpdate', params)
+  const data = await axios.post('/admin/market-center/saveOrUpdate', params)
   return data
 }
 
@@ -30,6 +30,6 @@ export const addMarketGold = async params => {
  * @param {Object} params 行情设置数据
  */
 export const delMarketGold = async id => {
-  const data = await axios.post('/market-center/del', { id })
+  const data = await axios.post('/admin/market-center/del', { id })
   return data
 }

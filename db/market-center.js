@@ -1,9 +1,9 @@
 var co = require('co')
 var MongoClient = require('mongodb').MongoClient
 
-// 'mongodb://yujin-admin:yujin@localhost:27017/yujin-gold?authMechanism=DEFAULT&authSource=yujin-gold'
 var connect = MongoClient.connect(
-  'mongodb://f9bd54217cc4450ea727e0efe2cb9643:af7b47e007944ef293636cac3d08b241@mongo.duapp.com:8908/AMmvmWrttRjLLKdkstKR?authMechanism=DEFAULT&authSource=AMmvmWrttRjLLKdkstKR'
+  'mongodb://yujin-admin:yujin@localhost:27017/yujin-gold?authMechanism=DEFAULT&authSource=yujin-gold'
+  // 'mongodb://f9bd54217cc4450ea727e0efe2cb9643:af7b47e007944ef293636cac3d08b241@mongo.duapp.com:8908/AMmvmWrttRjLLKdkstKR?authMechanism=DEFAULT&authSource=AMmvmWrttRjLLKdkstKR'
 )
 var db // 每次来请求时复用已有连接执行query，如果连接已被server端断开底层驱动会自动重连
 var onerror = function(e) {
