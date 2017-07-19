@@ -79,7 +79,7 @@ export default {
             <form @submit.prevent="loginHandler">
               <v-layout justify-center align-center>
                 <v-flex xs12>
-                  <h5>轻加支撑平台</h5>
+                  <h5>御锦黄金支撑平台</h5>
                 </v-flex>
               </v-layout>
               <v-layout justify-center align-center>

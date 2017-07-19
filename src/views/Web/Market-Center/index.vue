@@ -120,8 +120,16 @@ export default {
         <li v-for="item in items" :key="item.id">
           <ul class="row grid-row">
             <li>{{ item.type }}</li>
-            <li :class="item.bid_style">{{ item.bid }}</li>
-            <li :class="item.ask_style">{{ item.ask }}</li>
+            <li :class="item.bid_style">
+              <transition name="fade">
+                <span>{{ item.bid }}</span>
+              </transition>
+            </li>
+            <li :class="item.ask_style">
+              <transition name="fade">
+                <span>{{ item.ask }}</span>
+              </transition>
+            </li>
             <li>
               <p> {{ item.high }} </p>
               <p> {{ item.low }} </p>
@@ -142,11 +150,21 @@ body {
   background: #263238;
 }
 
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity .5s
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0
+}
+
 .grid-row {
   padding: 1em;
   li {
     width: 25%;
-    text-align: right;
+    text-align: center;
     font-size: 1.3em;
   }
   li:nth-child(1) {
@@ -204,10 +222,20 @@ body {
         color: #18FFFF;
         border-bottom: 1px solid #37474F;
         .up {
-          color: #FF5252;
+          span {
+            padding: .5em 1em;
+            color: #FFF;
+            border-radius: 5px;
+            background: #FF5252; // padding: 1em; // color: #FF5252;
+          }
         }
         .down {
-          color: #4caf50;
+          span {
+            padding: .5em 1em;
+            color: #FFF;
+            border-radius: 5px;
+            background: #4caf50; // padding: 1em; // color: #4caf50;
+          }
         }
         li p {
           margin: 0;
