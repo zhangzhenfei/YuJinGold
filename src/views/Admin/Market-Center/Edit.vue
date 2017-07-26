@@ -67,7 +67,9 @@ export default {
       const target = this.sources.find(function (v) {
         return '' + v.value === '' + input
       })
-      this.form.source_name = target.text
+      if (target && target.text) {
+        this.form.source_name = target.text
+      }
     },
     async loadMarketGold(id) {
       const { data } = await find({ id })
