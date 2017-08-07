@@ -19,7 +19,7 @@ export default {
   },
   async created() {
     await this.initData()
-    setInterval(await this.initData, 5000) // 数据5秒更新一次
+    setInterval(await this.initData, 3000) // 数据5秒更新一次
     this.updateNow()
     setInterval(this.updateNow, 1000) // 时间1秒更新一次
   },
@@ -66,8 +66,10 @@ export default {
               bid_origin: map['BID'],
               ask_origin: map['ASK'],
               bid_style: '',
+              bid_f_style: '',
               bid: calcPrice(map['BID'], m['saleCalc_type'], m['saleCalc_value'], m['decimal']),
               ask_style: '',
+              ask_f_style: '',
               ask: calcPrice(map['ASK'], m['buyCalc_type'], m['buyCalc_value'], m['decimal']),
               high: setDecimal(map['HIGH'], m['decimal']),
               low: setDecimal(map['LOW'], m['decimal'])
@@ -82,10 +84,18 @@ export default {
               return 'down'
             }
           }
+          const calcFontStyle = (target, origin, borderStyle, defaultFontStyle) => {
+            // 如果保持不变的话，原来的外框样式就变为文字颜色
+            if (target - origin === 0) {
+              return borderStyle || defaultFontStyle
+            }
+          }
           // 计算回购和销售的样式，升显示红色，减显示绿色
           for (const u of updateItems) {
             for (const o of this.items) {
               if (u.id === o.id) {
+                u.bid_f_style = calcFontStyle(u.bid, o.bid, o.bid_style, o.bid_f_style)
+                u.ask_f_style = calcFontStyle(u.ask, o.ask, o.ask_style, o.ask_f_style)
                 u.bid_style = getStyleByPrice(u.bid, o.bid)
                 u.ask_style = getStyleByPrice(u.ask, o.ask)
                 break
@@ -103,11 +113,7 @@ export default {
 <template>
   <div class="content">
     <section class="header">
-      <h1>御锦黄金</h1>
-      <div class="desc">
-        <div>行业领先的贵金属</div>
-        <div>珠宝综合交易平台</div>
-      </div>
+      <img class="logo" src="../../../assets/img/header.png" alt="">
     </section>
     <div class="date-info">
       <p>{{ now }} 开盘</p>
@@ -122,12 +128,12 @@ export default {
             <li>{{ item.type }}</li>
             <li :class="item.bid_style">
               <transition name="fade">
-                <span>{{ item.bid }}</span>
+                <span :class="item.bid_f_style">{{ item.bid }}</span>
               </transition>
             </li>
             <li :class="item.ask_style">
               <transition name="fade">
-                <span>{{ item.ask }}</span>
+                <span :class="item.ask_f_style">{{ item.ask }}</span>
               </transition>
             </li>
             <li>
@@ -139,7 +145,8 @@ export default {
       </ul>
     </div>
     <div class="footer">
-      <p>上述行情仅供参考！我们尽力提供准确有效的实时行情</p>
+      <p>御锦贵金属服务热线</p>
+      <p>0759-6688588</p>
     </div>
   </div>
 </template>
@@ -186,19 +193,12 @@ body {
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: flex-start;
-    align-items: flex-end;
+    align-items: center;
     padding: 1em;
     background: #fff;
-    h1 {
-      font-size: 3.5em;
-      color: #FFCA28;
-      margin: 0;
-    }
-    .desc {
-      display: flex;
-      font-size: 1.5em;
-      flex-direction: column;
-      padding: 0 0 .2em 1.5em;
+    .logo {
+      width: 100%;
+      height: auto;
     }
   }
   .date-info {
@@ -215,7 +215,7 @@ body {
       background-color: #37474F;
     }
     .grid {
-      padding: 0 0 4em 0;
+      padding: 0 0 5em 0;
       .row {
         display: flex;
         align-items: center;
@@ -237,8 +237,18 @@ body {
             background: #4caf50; // padding: 1em; // color: #4caf50;
           }
         }
-        li p {
-          margin: 0;
+        li {
+          span {
+            &.up {
+              color: #FF5252;
+            }
+            &.down {
+              color: #4caf50;
+            }
+          }
+          p {
+            margin: 0;
+          }
         }
         li:nth-child(1) {
           color: #FFCA28;
@@ -252,10 +262,15 @@ body {
     bottom: 0;
     left: 0;
     right: 0;
-    height: 4em;
+    height: 5em;
     background: #263238;
     font-size: 1.2em;
     padding: 1em;
+    text-align: center;
+    p {
+      margin: 0;
+      padding: .2em 0;
+    }
   }
 }
 </style>
