@@ -75,6 +75,7 @@ export default {
               low: setDecimal(map['LOW'], m['decimal'])
             }
           }
+          return m
         })
         if (this.items.length > 0) {
           const getStyleByPrice = (target, origin) => {
@@ -93,7 +94,7 @@ export default {
           // 计算回购和销售的样式，升显示红色，减显示绿色
           for (const u of updateItems) {
             for (const o of this.items) {
-              if (u.id === o.id) {
+              if (u && o && u.id === o.id) {
                 u.bid_f_style = calcFontStyle(u.bid, o.bid, o.bid_style, o.bid_f_style)
                 u.ask_f_style = calcFontStyle(u.ask, o.ask, o.ask_style, o.ask_f_style)
                 u.bid_style = getStyleByPrice(u.bid, o.bid)

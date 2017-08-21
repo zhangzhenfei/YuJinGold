@@ -17,7 +17,7 @@ module.exports = function(req, res, next) {
         console.log('鉴权成功!')
         next()
       }
-    } catch (err) {
+    } catch (e) {
       next(err)
     }
   } else {
