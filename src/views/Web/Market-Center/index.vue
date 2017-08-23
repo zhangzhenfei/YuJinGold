@@ -179,9 +179,9 @@ body {
 .grid-row {
   padding: 1em;
   li {
-    width: 25%;
+    flex: 1;
     text-align: center;
-    font-size: 1.5em;
+    font-size: 1.7em;
   }
   li:nth-child(1) {
     text-align: center;
