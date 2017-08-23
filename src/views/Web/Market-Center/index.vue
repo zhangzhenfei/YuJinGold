@@ -51,9 +51,9 @@ export default {
           float = parseFloat(float)
           decimal = parseInt(decimal)
           if (type) {
-            price = origin - float
-          } else {
             price = origin + float
+          } else {
+            price = origin - float
           }
           return price.toFixed(decimal)
         }
@@ -67,10 +67,10 @@ export default {
               ask_origin: map['ASK'],
               bid_style: '',
               bid_f_style: '',
-              bid: calcPrice(map['BID'], m['saleCalc_type'], m['saleCalc_value'], m['decimal']),
+              bid: calcPrice(map['BID'], m['buyCalc_type'], m['buyCalc_value'], m['decimal']),
               ask_style: '',
               ask_f_style: '',
-              ask: calcPrice(map['ASK'], m['buyCalc_type'], m['buyCalc_value'], m['decimal']),
+              ask: calcPrice(map['ASK'], m['saleCalc_type'], m['saleCalc_value'], m['decimal']),
               high: setDecimal(map['HIGH'], m['decimal']),
               low: setDecimal(map['LOW'], m['decimal'])
             }
@@ -114,7 +114,7 @@ export default {
 <template>
   <div class="content">
     <section class="header">
-      <img class="logo" src="../../../assets/img/header.png" alt="">
+      <img class="logo" src="../../../assets/img/header.jpg" alt="">
     </section>
     <div class="date-info">
       <p>{{ now }} 开盘</p>
@@ -146,16 +146,24 @@ export default {
       </ul>
     </div>
     <div class="footer">
-      <p>御锦贵金属服务热线</p>
-      <p>0759-6688588</p>
+      <p>御锦贵金属服务热线：
+        <span>0759-6688588</span>
+      </p>
     </div>
   </div>
 </template>
 
 <style lang="scss">
+$color-red: red;
+$color-green: rgb(0, 222, 68);
+$color-gold:#FFCA28;
+$color-white: #fff;
+$color-black: #000;
+$color-gray:#222;
+
 html,
 body {
-  background: #263238;
+  background: $color-black;
 }
 
 .fade-enter-active,
@@ -173,7 +181,7 @@ body {
   li {
     width: 25%;
     text-align: center;
-    font-size: 1.3em;
+    font-size: 1.5em;
   }
   li:nth-child(1) {
     text-align: center;
@@ -186,9 +194,6 @@ body {
   right: 0;
   bottom: 0;
   left: 0;
-  overflow-x: hidden;
-  overflow-y: scroll;
-  color: #BDBDBD;
   &>.header {
     display: flex;
     flex-direction: row;
@@ -196,7 +201,7 @@ body {
     justify-content: flex-start;
     align-items: center;
     padding: 1em;
-    background: #fff;
+    background: $color-white;
     .logo {
       width: 100%;
       height: auto;
@@ -206,45 +211,48 @@ body {
     p {
       text-align: right;
       padding-right: 1em;
-      font-size: 1.3em;
-      color: #FF5252;
+      font-size: 1.4em;
+      color: $color-red;
     }
   }
   .data-grid {
     .header {
       display: flex;
-      background-color: #37474F;
+      font-size: 1em;
+      color: $color-white;
+      background-color: $color-gray;
     }
     .grid {
-      padding: 0 0 5em 0;
+      padding: 0;
       .row {
         display: flex;
         align-items: center;
-        color: #18FFFF;
-        border-bottom: 1px solid #37474F;
+        color: $color-green;
+        border-bottom: 1px solid $color-gray;
         .up {
           span {
-            padding: .5em 1em;
+            padding: .5em .5em;
             color: #FFF;
-            border-radius: 5px;
-            background: #FF5252; // padding: 1em; // color: #FF5252;
+            border-radius: 2px;
+            background: $color-red;
           }
         }
         .down {
           span {
-            padding: .5em 1em;
-            color: #FFF;
-            border-radius: 5px;
-            background: #4caf50; // padding: 1em; // color: #4caf50;
+            padding: .5em .5em;
+            color: $color-white;
+            border-radius: 2px;
+            background: $color-green;
           }
         }
         li {
           span {
+            transition: all .5s;
             &.up {
-              color: #FF5252;
+              color: $color-red;
             }
             &.down {
-              color: #4caf50;
+              color: $color-green;
             }
           }
           p {
@@ -252,25 +260,26 @@ body {
           }
         }
         li:nth-child(1) {
-          color: #FFCA28;
+          color: $color-gold;
+        }
+        li:not(:first-child) {
+          font-weight: 500;
         }
       }
     }
   }
   .footer {
-    box-sizing: border-box;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 5em;
-    background: #263238;
-    font-size: 1.2em;
-    padding: 1em;
-    text-align: center;
+    font-size: 1.4em;
+    color: $color-white;
+    padding-left: 1em;
+    padding-bottom: .5em;
     p {
       margin: 0;
       padding: .2em 0;
+      span {
+        color: $color-gold;
+        border-bottom: $color-gold 1px solid;
+      }
     }
   }
 }

@@ -14,6 +14,7 @@ const router = new Router({
     Admin,
     {
       path: '/login',
+      name: 'Login',
       component: Login
     }
   ]
