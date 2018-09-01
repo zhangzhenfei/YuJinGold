@@ -2,7 +2,7 @@
 import { find, delMarketGold } from '@/api/market-center'
 
 export default {
-  data() {
+  data () {
     return {
       routes: [
         { title: '主页', to: { name: 'Admin' } },
@@ -26,11 +26,11 @@ export default {
       dialogText: ''
     }
   },
-  async created() {
+  async created () {
     this.query()
   },
   methods: {
-    async query() {
+    async query () {
       this.loading = true
       const caclMap = { 0: '-', 1: '+' }
       const { data } = await find()
@@ -43,15 +43,15 @@ export default {
       })
       this.loading = false
     },
-    addAcitvity() {
+    addAcitvity () {
       this.$router.push({ name: 'MarketCenterEdit' })
     },
-    deleteDialog(item) {
+    deleteDialog (item) {
       this.deleteId = item.id
       this.dialog = true
       this.dialogText = `是否确认行情配置：【${item.type}】？`
     },
-    async dialogConfirm() {
+    async dialogConfirm () {
       this.dialog = false
       await delMarketGold(this.deleteId)
       this.query()
@@ -62,10 +62,13 @@ export default {
 
 
 <template>
-  <v-layout row wrap>
+  <v-layout row
+            wrap>
     <v-flex xs12>
       <v-breadcrumbs divider="/">
-        <v-breadcrumbs-item v-for="route in routes" :to="route.to" :key="route.title">
+        <v-breadcrumbs-item v-for="route in routes"
+                            :to="route.to"
+                            :key="route.title">
           {{ route.title }}
         </v-breadcrumbs-item>
       </v-breadcrumbs>
@@ -73,15 +76,27 @@ export default {
     <v-flex xs12>
       <v-card>
         <v-container fluid>
-          <v-layout row wrap justify-start align-baseline>
+          <v-layout row
+                    wrap
+                    justify-start
+                    align-baseline>
             <v-spacer></v-spacer>
-            <v-btn @click.native.stop="addAcitvity" class="secondary white--text">新增
-              <v-icon dark right>add_circle</v-icon>
+            <v-btn @click.native.stop="addAcitvity"
+                   class="secondary white--text">新增
+              <v-icon dark
+                      right>add_circle</v-icon>
             </v-btn>
           </v-layout>
           <v-layout>
-            <v-data-table :loading="loading" :headers="headers" :items="items" no-data-text="找不到数据" no-results-text="无匹配数据" hide-actions class="operate">
-              <template slot="items" scope="props">
+            <v-data-table :loading="loading"
+                          :headers="headers"
+                          :items="items"
+                          no-data-text="找不到数据"
+                          no-results-text="无匹配数据"
+                          hide-actions
+                          class="operate">
+              <template slot="items"
+                        slot-scope="props">
                 <td class="text-xs-left">{{ props.item.type }}</td>
                 <td class="text-xs-left">{{ props.item.source_name }}</td>
                 <td class="text-xs-left">{{ props.item.buyCalc }}</td>
@@ -90,10 +105,12 @@ export default {
                 <td class="text-xs-left">{{ props.item.visible }}</td>
                 <td class="text-xs-left">{{ props.item.decimal }}</td>
                 <td class="text-xs-right">
-                  <v-btn icon :to="{ name: 'MarketCenterEdit', params: { id: props.item.id }}">
+                  <v-btn icon
+                         :to="{ name: 'MarketCenterEdit', params: { id: props.item.id }}">
                     <v-icon class="blue-grey--text">edit</v-icon>
                   </v-btn>
-                  <v-btn icon @click.native.stop="deleteDialog(props.item)">
+                  <v-btn icon
+                         @click.native.stop="deleteDialog(props.item)">
                     <v-icon class="deep-orange--text">delete_forever</v-icon>
                   </v-btn>
                 </td>
@@ -105,15 +122,21 @@ export default {
       </v-card>
     </v-flex>
     <v-flex xs12>
-      <v-layout row justify-center>
-        <v-dialog v-model="dialog" persistent>
+      <v-layout row
+                justify-center>
+        <v-dialog v-model="dialog"
+                  persistent>
           <v-card>
             <v-card-title class="headline">{{ dialogTitle }}</v-card-title>
             <v-card-text>{{ dialogText }}</v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn class="red--text darken-1" flat="flat" @click.native="dialogConfirm">确认</v-btn>
-              <v-btn class="green--text" flat="flat" @click.native="dialog = false">取消
+              <v-btn class="red--text darken-1"
+                     flat="flat"
+                     @click.native="dialogConfirm">确认</v-btn>
+              <v-btn class="green--text"
+                     flat="flat"
+                     @click.native="dialog = false">取消
               </v-btn>
             </v-card-actions>
           </v-card>

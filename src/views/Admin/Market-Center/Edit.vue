@@ -4,7 +4,7 @@ import forEach from 'lodash/forEach'
 import { find, fetchSources, addMarketGold } from '@/api/market-center'
 
 export default {
-  created() {
+  created () {
     this.initSources()
     // 如果id存在进入编辑模式，否则进入新增模式
     const id = this.$route.params.id
@@ -15,7 +15,7 @@ export default {
     }
     this.routes[2].title = routeTitle
   },
-  data() {
+  data () {
     return {
       loading: false,
       routes: [
@@ -35,22 +35,13 @@ export default {
         saleCalc_value: 0, // 销售计算方式值
         order: '', // 排序编号
         visible: 1, // 是否显示（0：首页不显示，1：首页显示）
-        decimal: 2,  // 小数位
+        decimal: 2, // 小数位
         remark: '' // 备注
       },
       sources: [], // 从api中统计
-      buyCalc_types: [
-        { text: '加', value: 1 },
-        { text: '减', value: 0 }
-      ],
-      saleCalc_types: [
-        { text: '加', value: 1 },
-        { text: '减', value: 0 }
-      ],
-      visibles: [
-        { text: '隐藏', value: 0 },
-        { text: '显示', value: 1 }
-      ],
+      buyCalc_types: [{ text: '加', value: 1 }, { text: '减', value: 0 }],
+      saleCalc_types: [{ text: '加', value: 1 }, { text: '减', value: 0 }],
+      visibles: [{ text: '隐藏', value: 0 }, { text: '显示', value: 1 }],
       // 表单校验模型
       rules: {
         type: [],
@@ -63,7 +54,7 @@ export default {
     }
   },
   methods: {
-    sourceInputHandle(input) {
+    sourceInputHandle (input) {
       const target = this.sources.find(function (v) {
         return '' + v.value === '' + input
       })
@@ -71,13 +62,13 @@ export default {
         this.form.source_name = target.text
       }
     },
-    async loadMarketGold(id) {
+    async loadMarketGold (id) {
       const { data } = await find({ id })
       const model = data[0]
       delete model._id
       this.form = data[0]
     },
-    async initSources() {
+    async initSources () {
       const { data } = await fetchSources()
       const sources = []
       for (const goldGroup of data) {
@@ -87,7 +78,7 @@ export default {
       }
       this.sources = sources
     },
-    async saveEdit() {
+    async saveEdit () {
       const valid = await this.$validator.validateAll()
       if (!valid) return
       this.loading = true
@@ -96,7 +87,7 @@ export default {
       this.snackbarText = data.success ? '保存成功' : '保存失败'
       this.loading = false
     },
-    goBack() {
+    goBack () {
       this.$router.back()
     }
   },
@@ -115,71 +106,159 @@ export default {
 
 
 <template>
-  <v-layout row wrap>
+  <v-layout row
+            wrap>
     <v-flex xs12>
       <v-breadcrumbs divider="/">
-        <v-breadcrumbs-item v-for="route in routes" :to="route.to" :key="route.title">
+        <v-breadcrumbs-item v-for="route in routes"
+                            :to="route.to"
+                            :key="route.title">
           {{ route.title }}
         </v-breadcrumbs-item>
       </v-breadcrumbs>
     </v-flex>
-    <v-flex xs12 class="content">
+    <v-flex xs12
+            class="content">
       <v-card class="elevation-0">
         <v-card-title primary-title>
           <h3 class="headline">品类名称：{{ form.type}}</h3>
         </v-card-title>
         <v-container fluid>
-          <v-layout row wrap>
-            <v-flex xs12 sm10 md8>
-              <form @submit.prevent="saveEdit">
-                <v-layout row wrap>
-                  <v-flex xs12 sm6>
-                    <v-text-field v-model="form.type" counter max="20" data-vv-name="type" label="品类名称" data-vv-as="品类名称" :rules="rules.type" v-validate="'required'" required></v-text-field>
+          <v-layout row
+                    wrap>
+            <v-flex xs12
+                    sm10
+                    md8>
+              <form @submit.prevent="saveEdit"
+                    novalidate>
+                <v-layout row
+                          wrap>
+                  <v-flex xs12
+                          sm6>
+                    <v-text-field v-model="form.type"
+                                  counter
+                                  max="20"
+                                  data-vv-name="type"
+                                  label="品类名称"
+                                  data-vv-as="品类名称"
+                                  :rules="rules.type"
+                                  v-validate="'required'"
+                                  required></v-text-field>
                   </v-flex>
-                  <v-flex xs12 sm6>
-                    <v-select :items="sources" data-vv-name="source_id" data-vv-as="所属来源" :rules="rules.source_id" v-model="form.source_id" @input="sourceInputHandle" label="所属来源" item-text="text" item-value="value" v-validate="'required'" required></v-select>
+                  <v-flex xs12
+                          sm6>
+                    <v-select :items="sources"
+                              data-vv-name="source_id"
+                              data-vv-as="所属来源"
+                              :rules="rules.source_id"
+                              v-model="form.source_id"
+                              @input="sourceInputHandle"
+                              label="所属来源"
+                              item-text="text"
+                              item-value="value"
+                              v-validate="'required'"
+                              required></v-select>
                   </v-flex>
                 </v-layout>
-                <v-layout row wrap justify-start align-baseline>
+                <v-layout row
+                          wrap
+                          justify-start
+                          align-baseline>
                   <span>回购计算方式：</span>
-                  <v-btn-toggle mandatory :items="buyCalc_types" v-model="form.buyCalc_type" class="pr-3"></v-btn-toggle>
-                  <v-text-field type="number" v-model.number="form.buyCalc_value">
+                  <v-btn-toggle mandatory
+                                :items="buyCalc_types"
+                                v-model="form.buyCalc_type"
+                                class="pr-3"></v-btn-toggle>
+                  <v-text-field type="number"
+                                class="pl-3"
+                                v-model.number="form.buyCalc_value"
+                                setp="0.01">
                   </v-text-field>
                 </v-layout>
-                <v-layout row wrap justify-start align-baseline>
+                <v-layout row
+                          wrap
+                          justify-start
+                          align-baseline>
                   <span>销售计算方式：</span>
-                  <v-btn-toggle mandatory :items="saleCalc_types" v-model="form.saleCalc_type" class="pr-3"></v-btn-toggle>
-                  <v-text-field type="number" v-model.number="form.saleCalc_value">
+                  <v-btn-toggle mandatory
+                                :items="saleCalc_types"
+                                v-model="form.saleCalc_type"
+                                class="pr-3"></v-btn-toggle>
+                  <v-text-field type="number"
+                                class="pl-3"
+                                v-model.number="form.saleCalc_value"
+                                setp="0.01">
                   </v-text-field>
                 </v-layout>
-                <v-layout row wrap>
-                  <v-flex xs12 sm6>
-                    <v-text-field type="number" data-vv-name="order" data-vv-as="排序" :rules="rules.order" label="排序" v-model.number="form.order" v-validate="'required'" required>
+                <v-layout row
+                          wrap>
+                  <v-flex xs12
+                          sm6>
+                    <v-text-field type="number"
+                                  data-vv-name="order"
+                                  data-vv-as="排序"
+                                  :rules="rules.order"
+                                  label="排序"
+                                  v-model.number="form.order"
+                                  v-validate="'required'"
+                                  required>
                     </v-text-field>
                   </v-flex>
-                  <v-flex xs12 sm6>
-                    <v-text-field type="number" data-vv-name="decimal" data-vv-as="小数位" :rules="rules.decimal" label="小数位" v-model.number="form.decimal" v-validate="'required'" required>
+                  <v-flex xs12
+                          sm6>
+                    <v-text-field type="number"
+                                  data-vv-name="decimal"
+                                  data-vv-as="小数位"
+                                  :rules="rules.decimal"
+                                  label="小数位"
+                                  v-model.number="form.decimal"
+                                  v-validate="'required'"
+                                  required>
                     </v-text-field>
                   </v-flex>
                 </v-layout>
-                <v-layout row wrap justify-start align-baseline>
+                <v-layout row
+                          wrap
+                          justify-start
+                          align-baseline>
                   <span>首页显示：</span>
-                  <v-btn-toggle mandatory :items="visibles" v-model="form.visible" class="pr-3"></v-btn-toggle>
+                  <v-btn-toggle mandatory
+                                :items="visibles"
+                                v-model="form.visible"
+                                class="pr-3"></v-btn-toggle>
                 </v-layout>
-                <v-layout row wrap>
+                <v-layout row
+                          wrap>
                   <v-flex xs12>
-                    <v-text-field v-model="form.remark" multi-line counter max="200" data-vv-name="remark" label="备注"></v-text-field>
+                    <v-text-field v-model="form.remark"
+                                  multi-line
+                                  counter
+                                  max="200"
+                                  data-vv-name="remark"
+                                  label="备注"></v-text-field>
                   </v-flex>
                 </v-layout>
-                <v-layout row wrap>
-                  <v-flex xs6 sm3>
-                    <v-btn primary :loading="loading" dark block type="submit">保存
-                      <v-icon right dark>save</v-icon>
+                <v-layout row
+                          wrap>
+                  <v-flex xs6
+                          sm3>
+                    <v-btn primary
+                           :loading="loading"
+                           dark
+                           block
+                           type="submit">保存
+                      <v-icon right
+                              dark>save</v-icon>
                     </v-btn>
                   </v-flex>
-                  <v-flex xs6 sm3>
-                    <v-btn block dark secondary @click.native="goBack">返回
-                      <v-icon right dark>keyboard_return</v-icon>
+                  <v-flex xs6
+                          sm3>
+                    <v-btn block
+                           dark
+                           secondary
+                           @click.native="goBack">返回
+                      <v-icon right
+                              dark>keyboard_return</v-icon>
                     </v-btn>
                   </v-flex>
                 </v-layout>
@@ -188,9 +267,13 @@ export default {
           </v-layout>
         </v-container>
       </v-card>
-      <v-snackbar secondary right v-model="snackbar">
+      <v-snackbar secondary
+                  right
+                  v-model="snackbar">
         {{ snackbarText }}
-        <v-btn light flat @click.native="snackbar = false">
+        <v-btn light
+               flat
+               @click.native="snackbar = false">
           <v-icon light>close</v-icon>
         </v-btn>
       </v-snackbar>

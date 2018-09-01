@@ -1,8 +1,15 @@
 <template>
   <v-app>
-    <v-navigation-drawer dark persistent enable-resize-watcher :mini-variant.sync="miniVariant" :clipped="clipped" v-model="drawer" class="blue-grey darken-4">
+    <v-navigation-drawer dark
+                         persistent
+                         enable-resize-watcher
+                         :mini-variant.sync="miniVariant"
+                         :clipped="clipped"
+                         v-model="drawer"
+                         class="blue-grey darken-4">
       <v-list class="pa-0 blue-grey darken-4">
-        <v-list-tile avatar tag="div">
+        <v-list-tile avatar
+                     tag="div">
           <v-list-tile-avatar>
             <img src="../../assets/img/adminbg.jpg"></img>
           </v-list-tile-avatar>
@@ -10,16 +17,24 @@
             <v-list-tile-title>Admin</v-list-tile-title>
           </v-list-tile-content>
           <v-list-tile-action>
-            <v-btn icon dark @click.native.stop="toggleMainNavMiniVariant">
-              <v-icon dark v-html="miniVariant ? 'chevron_right' : 'chevron_left'"></v-icon>
+            <v-btn icon
+                   dark
+                   @click.native.stop="toggleMainNavMiniVariant">
+              <v-icon dark
+                      v-html="miniVariant ? 'chevron_right' : 'chevron_left'"></v-icon>
             </v-btn>
           </v-list-tile-action>
         </v-list-tile>
       </v-list>
       <v-list class="blue-grey darken-4">
-        <v-list-tile v-for="nav in navs" :key="nav.title" :to="nav.to" ripple>
+        <v-list-tile v-for="nav in navs"
+                     :key="nav.title"
+                     :to="nav.to"
+                     ripple>
           <v-list-tile-action>
-            <v-btn icon dark @click.native.stop="showMainNavMiniVariant">
+            <v-btn icon
+                   dark
+                   @click.native.stop="showMainNavMiniVariant">
               <v-icon dark>{{ nav.action }}</v-icon>
             </v-btn>
           </v-list-tile-action>
@@ -29,26 +44,48 @@
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
-    <v-toolbar fixed dark class="blue-grey darken-4">
-      <v-toolbar-side-icon @click.native.stop="toggleMainNavDrawer"></v-toolbar-side-icon>
+    <v-toolbar fixed
+               dark
+               class="blue-grey darken-4">
+      <v-toolbar-side-icon @click.stop="toggleMainNavMiniVariant"></v-toolbar-side-icon>
       <v-toolbar-title>{{ title }}</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn icon @click.native.stop="toggleMainNavClipped">
+      <v-btn icon
+             @click.native.stop="toggleMainNavClipped">
         <v-icon>web</v-icon>
       </v-btn>
     </v-toolbar>
     <main>
       <v-container>
         <router-view></router-view>
-        <v-speed-dial fixed bottom right direction="top" hover transition="slide-y-reverse-transition" v-model="fab">
-          <v-btn slot="activator" class="secondary" dark fab hover v-model="fab">
+        <v-speed-dial fixed
+                      bottom
+                      right
+                      direction="top"
+                      hover
+                      transition="slide-y-reverse-transition"
+                      v-model="fab">
+          <v-btn slot="activator"
+                 class="secondary"
+                 dark
+                 fab
+                 hover
+                 v-model="fab">
             <v-icon>data_usage</v-icon>
             <v-icon>close</v-icon>
           </v-btn>
-          <v-btn fab dark small class="green" @click.native.stop="gotoTop">
+          <v-btn fab
+                 dark
+                 small
+                 class="green"
+                 @click.native.stop="gotoTop">
             <v-icon>vertical_align_top</v-icon>
           </v-btn>
-          <v-btn fab dark small class="indigo" @click.native.stop="backup">
+          <v-btn fab
+                 dark
+                 small
+                 class="indigo"
+                 @click.native.stop="backup">
             <v-icon>keyboard_arrow_left</v-icon>
           </v-btn>
         </v-speed-dial>
@@ -62,7 +99,7 @@ import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'Index',
-  data() {
+  data () {
     return { fab: false }
   },
   computed: {
@@ -73,10 +110,10 @@ export default {
       title: state => state.admin.title
     }),
     drawer: {
-      get() {
+      get () {
         return this.$store.state.admin.drawer
       },
-      set(val) {
+      set (val) {
         this.$store.commit('admin/SET_MAIN_NAV_DRAWER', val)
       }
     }
@@ -88,10 +125,10 @@ export default {
       'toggleMainNavClipped',
       'toggleMainNavDrawer'
     ]),
-    gotoTop() {
+    gotoTop () {
       scrollTo(0, 0)
     },
-    backup() {
+    backup () {
       this.$router.back()
     }
   }
@@ -99,7 +136,7 @@ export default {
 </script>
 
 <style lang="stylus">
-@import '../../assets/styl/main'
-@import '../../assets/font/material-icons.css'
-@import '../../assets/css/main.css'
+@import '../../assets/styl/main';
+@import '../../assets/font/material-icons.css';
+@import '../../assets/css/main.css';
 </style>

@@ -181,7 +181,7 @@ body {
   li {
     flex: 1;
     text-align: center;
-    font-size: 1.7em;
+    font-size: 1.8em;
   }
   li:nth-child(1) {
     text-align: center;
@@ -269,9 +269,9 @@ body {
     }
   }
   .footer {
-    font-size: 1.4em;
+    font-size: 1.8em;
     color: $color-white;
-    padding-left: 1em;
+    text-align: center;
     padding-bottom: .5em;
     p {
       margin: 0;
