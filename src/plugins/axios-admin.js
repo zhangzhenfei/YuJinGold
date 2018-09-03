@@ -1,10 +1,10 @@
 import axios from 'axios'
 import router from '../router/index'
 
-// http://jinyugold.duapp.com
+// http://yujingold-api.yujingold.top/
 // http://localhost:18080
 let options = {
-  baseURL: 'http://localhost:18080', // dev
+  baseURL: 'http://yujingold-api.yujingold.top', // dev
   // baseURL: 'http://jinyugold.duapp.com', // prod
   timeout: 300000 // 300000ms的超时验证
 }
