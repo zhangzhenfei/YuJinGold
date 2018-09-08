@@ -1,5 +1,5 @@
 <script>
-import { find, delMarketGold } from '@/api/market-center'
+import { find, delMarketGold, downloadMarketGold } from '@/api/market-center'
 
 export default {
   data () {
@@ -46,6 +46,9 @@ export default {
     addAcitvity () {
       this.$router.push({ name: 'MarketCenterEdit' })
     },
+    exportAcitvity () {
+      downloadMarketGold()
+    },
     deleteDialog (item) {
       this.deleteId = item.id
       this.dialog = true
@@ -86,6 +89,18 @@ export default {
               <v-icon dark
                       right>add_circle</v-icon>
             </v-btn>
+            <v-btn @click.native.stop="exportAcitvity"
+                   class="secondary white--text ml-1">导出
+              <v-icon dark
+                      right>import_export</v-icon>
+            </v-btn>
+          </v-layout>
+          <v-layout row
+                    wrap
+                    justify-start
+                    align-baseline>
+            <v-spacer></v-spacer>
+            <div class="tip">*Tip：数据修改后，需要及时导出备份，以免系统故障造成数据丢失！</div>
           </v-layout>
           <v-layout>
             <v-data-table :loading="loading"
@@ -150,5 +165,9 @@ export default {
 .operate a,
 button {
   margin: 0;
+}
+.tip {
+  color: red;
+  padding: 12px 0;
 }
 </style>

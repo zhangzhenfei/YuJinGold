@@ -12,7 +12,10 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
 // 直接将vue打包的dist目录作为静态目录渲染
-app.use(express.static(path.join(__dirname, 'dist')))
+var options = {
+  maxAge: 3600000
+}
+app.use(express.static(path.join(__dirname, 'dist'), options))
 
 // 跨域允许所有来源请求，具体权限在oauth里面处理
 

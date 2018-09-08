@@ -17,6 +17,14 @@ export const find = async query => {
 }
 
 /**
+ * 下载行情设置
+ */
+export const downloadMarketGold = () => {
+  // axios.post('/admin/market-center/download')
+  window.open('http://localhost:18080/view/market-center/download', '_self')
+}
+
+/**
  * 增加行情设置
  * @param {Object} params 行情设置数据
  */

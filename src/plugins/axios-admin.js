@@ -1,11 +1,11 @@
 import axios from 'axios'
 import router from '../router/index'
 
-// http://yujingold-api.yujingold.top/
-// http://localhost:18080
+const devUrl = 'http://localhost:18080'
+const prodUrl = 'http://yujingold.bceapp.com'
+
 let options = {
-  baseURL: 'http://yujingold-api.yujingold.top', // dev
-  // baseURL: 'http://jinyugold.duapp.com', // prod
+  baseURL: process.env.NODE_ENV === 'production' ? prodUrl : devUrl,
   timeout: 300000 // 300000ms的超时验证
 }
 // 创建一个axios实例
