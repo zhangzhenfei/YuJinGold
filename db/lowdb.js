@@ -8,7 +8,7 @@ const db = low(adapter)
 db._.mixin(LodashId)
 
 // Set some defaults (required if your JSON file is empty)
-db.defaults({ markets: [] }).write()
+// db.defaults({ markets: [] }).write()
 
 function saveOrUpdate(model) {
   // 先去数据库种查找，如果查找到则更新，否则插入
