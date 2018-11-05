@@ -11,8 +11,16 @@ export const fetchSources = async () => {
 /**
  * 查找市场行情设置列表
  */
-export const find = async query => {
-  const data = await axios.post('/admin/market-center/find', query)
+export const find = async () => {
+  const data = await axios.post('/admin/market-center/find')
+  return data
+}
+
+/**
+ * 查找市场行情条件查找
+ */
+export const findByQuery = async query => {
+  const data = await axios.post('/admin/market-center/findByQuery', query)
   return data
 }
 
@@ -21,7 +29,11 @@ export const find = async query => {
  */
 export const downloadMarketGold = () => {
   // axios.post('/admin/market-center/download')
-  window.open('http://localhost:18080/view/market-center/download', '_self')
+  // window.open('http://localhost:18080/view/market-center/download', '_self')
+  window.open(
+    'http://yujingold.bceapp.com/view/market-center/download',
+    '_self'
+  )
 }
 
 /**

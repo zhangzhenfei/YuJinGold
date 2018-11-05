@@ -20,8 +20,14 @@ router.post('/saveOrUpdate', function(req, res, next) {
 })
 
 router.post('/find', function(req, res, next) {
+  marketCenterDB.find().then(function(result) {
+    res.json(result)
+  })
+})
+
+router.post('/findByQuery', function(req, res, next) {
   var params = req.body
-  marketCenterDB.find(params).then(function(result) {
+  marketCenterDB.findByQuery(params).then(function(result) {
     res.json(result)
   })
 })

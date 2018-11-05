@@ -16,8 +16,10 @@ function saveOrUpdate(model) {
     const instance = db.get('markets')
     const dbModel = instance.getById(model.id).value()
     if (dbModel) {
-      instance.updateById(model.id).write()
+      console.log('模型已存在，进行更新', dbModel)
+      instance.updateById(model.id, model).write()
     } else {
+      console.log('模型不存在，进行插入')
       instance.insert(model).write()
     }
     resolve({ result: { ok: 1 } })
@@ -31,6 +33,21 @@ function saveOrUpdate(model) {
 function find() {
   return new Promise(function(resolve, reject) {
     const value = db.get('markets').value()
+    console.log('查询结果为：', value)
+    resolve(value)
+  })
+}
+
+/**
+ * 查找市场行情设置
+ * @returns Promise
+ */
+function findByQuery(query) {
+  return new Promise(function(resolve, reject) {
+    const value = db
+      .get('markets')
+      .find(query)
+      .value()
     console.log('查询结果为：', value)
     resolve(value)
   })
@@ -52,5 +69,6 @@ function del(id) {
 module.exports = {
   saveOrUpdate,
   find,
+  findByQuery,
   del
 }

@@ -1,7 +1,7 @@
 <script>
 import UUID from 'uuidjs'
 import forEach from 'lodash/forEach'
-import { find, fetchSources, addMarketGold } from '@/api/market-center'
+import { findByQuery, fetchSources, addMarketGold } from '@/api/market-center'
 
 export default {
   created () {
@@ -63,10 +63,10 @@ export default {
       }
     },
     async loadMarketGold (id) {
-      const { data } = await find({ id })
-      const model = data[0]
+      const { data } = await findByQuery({ id })
+      const model = data
       delete model._id
-      this.form = data[0]
+      this.form = model
     },
     async initSources () {
       const { data } = await fetchSources()
